@@ -1,30 +1,58 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aayu ki Website</title>
+<title>Didu vs Aayu Game</title>
 <style>
-body{
-background: linear-gradient(to bottom, #a5f3fc, #ffffff);
-font-family: sans-serif;
-text-align: center;
-padding-top: 50px;
-}
-h1{ font-size: 40px; color: #1e293b; }
-p{ font-size: 20px; }
-button{
-padding: 15px 30px;
-font-size: 18px;
-background: #0ea5e9;
-color: white;
-border: none;
-border-radius: 30px;
-}
+body{text-align:center;font-family:Arial;background:linear-gradient(to bottom,#a18cd1,#fbc2eb);min-height:100vh;margin:0;padding:20px}
+.box{background:white;padding:20px;border-radius:20px;max-width:350px;margin:auto;box-shadow:0 10px 30px rgba(0,0,0,0.3)}
+#score{font-size:60px;color:#ff0080;font-weight:bold}
+button{padding:15px 30px;font-size:22px;background:#ff0080;color:white;border:none;border-radius:50px;margin:10px;cursor:pointer}
+button:active{transform:scale(0.9)}
+#timer{font-size:20px;color:purple}
 </style>
 </head>
 <body>
-<h1>Mera naam Aayu hai 🔥</h1>
-<p>Main ek coder bann gaya hu!</p>
-<button onclick="alert('Didu se zyada smart hu mai! 😎')">Mujhe dabao</button>
+<div class="box">
+<h2>Didu vs Aayu 😎</h2>
+<p id="timer">Time: 10s</p>
+<p id="score">0</p>
+<button onclick="tap()" id="tapBtn">TAP KARO! 👆</button>
+<p id="msg">10 second me kitna tap kar sakta hai?</p>
+<button onclick="startGame()" style="background:purple">Game Start Karo</button>
+<br>
+<button onclick="shareScore()" style="background:green;font-size:16px">Didu ko Challenge Bhej</button>
+<p style="font-size:12px;color:gray;margin-top:20px">Ads yahan ayenge - Har visit ka paisa!</p>
+</div>
+
+<script>
+let s=0; let t=10; let playing=false; let timer;
+function startGame(){
+ s=0; t=10; playing=true;
+ document.getElementById('score').innerText=s;
+ document.getElementById('msg').innerText='Jaldi tap kar!!';
+ clearInterval(timer);
+ timer=setInterval(()=>{
+  t--; document.getElementById('timer').innerText='Time: '+t+'s';
+  if(t<=0){ endGame(); }
+ },1000);
+}
+function tap(){
+ if(!playing) return;
+ s++; document.getElementById('score').innerText=s;
+}
+function endGame(){
+ playing=false; clearInterval(timer);
+ if(s>50) document.getElementById('msg').innerText='🔥 Aayu Pro Player! Score: '+s+' Didu se tez!';
+ else if(s>20) document.getElementById('msg').innerText='Nice! Score: '+s+' Didu ko hara diya!';
+ else document.getElementById('msg').innerText='Score: '+s+' Practice kar, Didu jeet jayegi!';
+ document.getElementById('timer').innerText='Game Over!';
+}
+function shareScore(){
+ let text=`Maine ${s} score kiya Didu vs Aayu game me! Tu kar ke dikha: https://chaudharyshubhchaudhary6-cell.github.io/Meri-game-/`;
+ if(navigator.share){ navigator.share({text:text}); }
+ else { alert(text); }
+}
+</script>
 </body>
 </html>
